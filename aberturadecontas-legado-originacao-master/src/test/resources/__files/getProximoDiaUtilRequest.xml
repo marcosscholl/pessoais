@@ -1,0 +1,7 @@
+<ejb:getProximoDiaUtil xmlns:ejb="http://ejb.server.business.commons.mua.sicredi.com.br/">
+    <inGetProximoDiaUtil>
+        <nomCidade>PORTO ALEGRE</nomCidade>
+        <uf>RS</uf>
+        <dtUtil>2025-04-25</dtUtil>
+    </inGetProximoDiaUtil>
+</ejb:getProximoDiaUtil>

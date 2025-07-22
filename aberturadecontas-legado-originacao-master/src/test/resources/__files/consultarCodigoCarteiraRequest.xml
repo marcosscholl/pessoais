@@ -1,0 +1,3 @@
+<car:consultarCarteiraRequest xmlns:car="http://sicredi.com.br/crm/ws/v1/carteiraService">
+    <car:oidCadastroCarteira>55252</car:oidCadastroCarteira>
+</car:consultarCarteiraRequest>

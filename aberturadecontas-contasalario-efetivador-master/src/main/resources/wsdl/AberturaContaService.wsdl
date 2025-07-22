@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WL5G3N2:definitions targetNamespace="http://www.sicredi.com.br/mua/cadastro/business/server/ws/v1/AberturaContaService" xmlns:WL5G3N0="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:WL5G3N1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N3="http://www.sicredi.com.br/mua/cadastro/business/server/ws/v1/AberturaContaService" xmlns:WL5G3N4="http://sicredi.com.br/arqref/exception/binding/" xmlns:WL5G3N5="http://schemas.xmlsoap.org/wsdl/soap/">
+<WL5G3N0:Policy WL5G3N1:Id="AberturaContaServicePortBinding_WSAT_policy">
+<WL5G3N0:ExactlyOne>
+<WL5G3N0:All>
+<wsat:ATAssertion wsp:Optional="true" xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+</WL5G3N0:All>
+<WL5G3N0:All>
+<wsat12:ATAssertion wsp:Optional="true" xmlns:wsat12="http://docs.oasis-open.org/ws-tx/wsat/2006/06" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+</WL5G3N0:All>
+<WL5G3N0:All>
+<wsat12:ATAssertion wsp:Optional="true" xmlns:wsat12="http://docs.oasis-open.org/ws-tx/wsat/2006/06" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+</WL5G3N0:All>
+</WL5G3N0:ExactlyOne>
+</WL5G3N0:Policy>
+    <WL5G3N2:types>
+        <xsd:schema xmlns:WL5G3N2="http://www.w3.org/ns/ws-policy" xmlns:WL5G3N3="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N4="http://www.sicredi.com.br/mua/cadastro/business/server/ws/v1/AberturaContaService" xmlns:WL5G3N5="http://sicredi.com.br/arqref/exception/binding/" xmlns:WL5G3N6="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:seb="http://sicredi.com.br/arqref/exception/binding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://www.sicredi.com.br/mua/cadastro/business/server/ws/v1/AberturaContaService" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wssutil="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.sicredi.com.br/mua/cadastro/business/server/ws/v1/AberturaContaService" schemaLocation="http://osb3cmua.hom.sicredi.net:80/osb-3c-servpla/cadastro/mua/conta/aberturaConta/ws/v1/ps/AberturaContaService?SCHEMA%2Fosb-3c-servpla%2Fcadastro%2Fmua%2Fconta%2FaberturaConta%2Fws%2Fv1%2Fps%2Fwsdl%2FAberturaContaService"/>
+            <xsd:import namespace="http://sicredi.com.br/arqref/exception/binding/" schemaLocation="http://osb3cmua.hom.sicredi.net:80/osb-3c-servpla/cadastro/mua/conta/aberturaConta/ws/v1/ps/AberturaContaService?SCHEMA%2Fosb-3c-servpla%2Farqref%2Fexception%2Fbinding%2FServException"/>
+        </xsd:schema>
+    </WL5G3N2:types>
+    <WL5G3N2:message name="validarDigito">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:validarDigito"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="validarDigitoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:validarDigitoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="ServException">
+        <WL5G3N2:part name="fault" element="WL5G3N4:ServException"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getProximoNumContaDisp">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getProximoNumContaDisp"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getProximoNumContaDispResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getProximoNumContaDispResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getPacotes">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getPacotes"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getPacotesResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getPacotesResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getDetalhesPacote">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getDetalhesPacote"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getDetalhesPacoteResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getDetalhesPacoteResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getFormasRecebimentoTotalExtrato">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getFormasRecebimentoTotalExtrato"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getFormasRecebimentoTotalExtratoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getFormasRecebimentoTotalExtratoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getFontesPagadoras">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getFontesPagadoras"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getFontesPagadorasResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getFontesPagadorasResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getNucleos">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getNucleos"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getNucleosResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getNucleosResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="isCriaNumContaAutomatico">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:isCriaNumContaAutomatico"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="isCriaNumContaAutomaticoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:isCriaNumContaAutomaticoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getNumerosContaReaproveitamento">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getNumerosContaReaproveitamento"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getNumerosContaReaproveitamentoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getNumerosContaReaproveitamentoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="hasAcessoProduto">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:hasAcessoProduto"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="hasAcessoProdutoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:hasAcessoProdutoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="isPassivelAlteracaoTitularidade">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:isPassivelAlteracaoTitularidade"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="isPassivelAlteracaoTitularidadeResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:isPassivelAlteracaoTitularidadeResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getValoresMinimoSubscricao">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getValoresMinimoSubscricao"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getValoresMinimoSubscricaoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getValoresMinimoSubscricaoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getCapitalMinimoEstatutoCooperativa">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getCapitalMinimoEstatutoCooperativa"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getCapitalMinimoEstatutoCooperativaResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getCapitalMinimoEstatutoCooperativaResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="validarDadosCadastro">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:validarDadosCadastro"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="validarDadosCadastroResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:validarDadosCadastroResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarChequeEspecial">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarChequeEspecial"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarChequeEspecialResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarChequeEspecialResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarTotalExtrato">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarTotalExtrato"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarTotalExtratoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarTotalExtratoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getClassificacaoContaCtb">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getClassificacaoContaCtb"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getClassificacaoContaCtbResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getClassificacaoContaCtbResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getAgencias">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getAgencias"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getAgenciasResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getAgenciasResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getInstituicaoFinanceira">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getInstituicaoFinanceira"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getInstituicaoFinanceiraResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getInstituicaoFinanceiraResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getInformacoesCooperativa">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getInformacoesCooperativa"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getInformacoesCooperativaResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getInformacoesCooperativaResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getAberturaContaCoexistenciaPJ">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getAberturaContaCoexistenciaPJ"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getAberturaContaCoexistenciaPJResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getAberturaContaCoexistenciaPJResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="saveAberturaContaCoexistenciaPJ">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:saveAberturaContaCoexistenciaPJ"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="saveAberturaContaCoexistenciaPJResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:saveAberturaContaCoexistenciaPJResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getAberturaContaCoexistenciaPF">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getAberturaContaCoexistenciaPF"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getAberturaContaCoexistenciaPFResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getAberturaContaCoexistenciaPFResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="criarSubscricaoCapital">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:criarSubscricaoCapital"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="criarSubscricaoCapitalResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:criarSubscricaoCapitalResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="saveAberturaContaCoexistenciaPF">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:saveAberturaContaCoexistenciaPF"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="saveAberturaContaCoexistenciaPFResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:saveAberturaContaCoexistenciaPFResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getLimitePreAprovado">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getLimitePreAprovado"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="getLimitePreAprovadoResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:getLimitePreAprovadoResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarProdutosCreditoPF">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarProdutosCreditoPF"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarProdutosCreditoPFResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarProdutosCreditoPFResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarProdutosCreditoPJ">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarProdutosCreditoPJ"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="contratarProdutosCreditoPJResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:contratarProdutosCreditoPJResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="saveDevedorSolidario">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:saveDevedorSolidario"/>
+    </WL5G3N2:message>
+    <WL5G3N2:message name="saveDevedorSolidarioResponse">
+        <WL5G3N2:part name="parameters" element="WL5G3N3:saveDevedorSolidarioResponse"/>
+    </WL5G3N2:message>
+    <WL5G3N2:portType name="AberturaContaServicePort">
+        <WL5G3N2:operation name="validarDigito">
+            <WL5G3N2:input message="WL5G3N3:validarDigito"/>
+            <WL5G3N2:output message="WL5G3N3:validarDigitoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getProximoNumContaDisp">
+            <WL5G3N2:input message="WL5G3N3:getProximoNumContaDisp"/>
+            <WL5G3N2:output message="WL5G3N3:getProximoNumContaDispResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getPacotes">
+            <WL5G3N2:input message="WL5G3N3:getPacotes"/>
+            <WL5G3N2:output message="WL5G3N3:getPacotesResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getDetalhesPacote">
+            <WL5G3N2:input message="WL5G3N3:getDetalhesPacote"/>
+            <WL5G3N2:output message="WL5G3N3:getDetalhesPacoteResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getFormasRecebimentoTotalExtrato">
+            <WL5G3N2:input message="WL5G3N3:getFormasRecebimentoTotalExtrato"/>
+            <WL5G3N2:output message="WL5G3N3:getFormasRecebimentoTotalExtratoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getFontesPagadoras">
+            <WL5G3N2:input message="WL5G3N3:getFontesPagadoras"/>
+            <WL5G3N2:output message="WL5G3N3:getFontesPagadorasResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getNucleos">
+            <WL5G3N2:input message="WL5G3N3:getNucleos"/>
+            <WL5G3N2:output message="WL5G3N3:getNucleosResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="isCriaNumContaAutomatico">
+            <WL5G3N2:input message="WL5G3N3:isCriaNumContaAutomatico"/>
+            <WL5G3N2:output message="WL5G3N3:isCriaNumContaAutomaticoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getNumerosContaReaproveitamento">
+            <WL5G3N2:input message="WL5G3N3:getNumerosContaReaproveitamento"/>
+            <WL5G3N2:output message="WL5G3N3:getNumerosContaReaproveitamentoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="hasAcessoProduto">
+            <WL5G3N2:input message="WL5G3N3:hasAcessoProduto"/>
+            <WL5G3N2:output message="WL5G3N3:hasAcessoProdutoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="isPassivelAlteracaoTitularidade">
+            <WL5G3N2:input message="WL5G3N3:isPassivelAlteracaoTitularidade"/>
+            <WL5G3N2:output message="WL5G3N3:isPassivelAlteracaoTitularidadeResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getValoresMinimoSubscricao">
+            <WL5G3N2:input message="WL5G3N3:getValoresMinimoSubscricao"/>
+            <WL5G3N2:output message="WL5G3N3:getValoresMinimoSubscricaoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getCapitalMinimoEstatutoCooperativa">
+            <WL5G3N2:input message="WL5G3N3:getCapitalMinimoEstatutoCooperativa"/>
+            <WL5G3N2:output message="WL5G3N3:getCapitalMinimoEstatutoCooperativaResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="validarDadosCadastro">
+            <WL5G3N2:input message="WL5G3N3:validarDadosCadastro"/>
+            <WL5G3N2:output message="WL5G3N3:validarDadosCadastroResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarChequeEspecial">
+            <WL5G3N2:input message="WL5G3N3:contratarChequeEspecial"/>
+            <WL5G3N2:output message="WL5G3N3:contratarChequeEspecialResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarTotalExtrato">
+            <WL5G3N2:input message="WL5G3N3:contratarTotalExtrato"/>
+            <WL5G3N2:output message="WL5G3N3:contratarTotalExtratoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getClassificacaoContaCtb">
+            <WL5G3N2:input message="WL5G3N3:getClassificacaoContaCtb"/>
+            <WL5G3N2:output message="WL5G3N3:getClassificacaoContaCtbResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getAgencias">
+            <WL5G3N2:input message="WL5G3N3:getAgencias"/>
+            <WL5G3N2:output message="WL5G3N3:getAgenciasResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getInstituicaoFinanceira">
+            <WL5G3N2:input message="WL5G3N3:getInstituicaoFinanceira"/>
+            <WL5G3N2:output message="WL5G3N3:getInstituicaoFinanceiraResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getInformacoesCooperativa">
+            <WL5G3N2:input message="WL5G3N3:getInformacoesCooperativa"/>
+            <WL5G3N2:output message="WL5G3N3:getInformacoesCooperativaResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getAberturaContaCoexistenciaPJ">
+            <WL5G3N2:input message="WL5G3N3:getAberturaContaCoexistenciaPJ"/>
+            <WL5G3N2:output message="WL5G3N3:getAberturaContaCoexistenciaPJResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="saveAberturaContaCoexistenciaPJ">
+            <WL5G3N2:input message="WL5G3N3:saveAberturaContaCoexistenciaPJ"/>
+            <WL5G3N2:output message="WL5G3N3:saveAberturaContaCoexistenciaPJResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getAberturaContaCoexistenciaPF">
+            <WL5G3N2:input message="WL5G3N3:getAberturaContaCoexistenciaPF"/>
+            <WL5G3N2:output message="WL5G3N3:getAberturaContaCoexistenciaPFResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="criarSubscricaoCapital">
+            <WL5G3N2:input message="WL5G3N3:criarSubscricaoCapital"/>
+            <WL5G3N2:output message="WL5G3N3:criarSubscricaoCapitalResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="saveAberturaContaCoexistenciaPF">
+            <WL5G3N2:input message="WL5G3N3:saveAberturaContaCoexistenciaPF"/>
+            <WL5G3N2:output message="WL5G3N3:saveAberturaContaCoexistenciaPFResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getLimitePreAprovado">
+            <WL5G3N2:input message="WL5G3N3:getLimitePreAprovado"/>
+            <WL5G3N2:output message="WL5G3N3:getLimitePreAprovadoResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarProdutosCreditoPF">
+            <WL5G3N2:input message="WL5G3N3:contratarProdutosCreditoPF"/>
+            <WL5G3N2:output message="WL5G3N3:contratarProdutosCreditoPFResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarProdutosCreditoPJ">
+            <WL5G3N2:input message="WL5G3N3:contratarProdutosCreditoPJ"/>
+            <WL5G3N2:output message="WL5G3N3:contratarProdutosCreditoPJResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="saveDevedorSolidario">
+            <WL5G3N2:input message="WL5G3N3:saveDevedorSolidario"/>
+            <WL5G3N2:output message="WL5G3N3:saveDevedorSolidarioResponse"/>
+            <WL5G3N2:fault name="ServException" message="WL5G3N3:ServException"/>
+        </WL5G3N2:operation>
+    </WL5G3N2:portType>
+    <WL5G3N2:binding name="AberturaContaServicePortBinding" type="WL5G3N3:AberturaContaServicePort">
+        <WL5G3N5:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <WL5G3N2:operation name="validarDigito">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getProximoNumContaDisp">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getPacotes">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getDetalhesPacote">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getFormasRecebimentoTotalExtrato">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getFontesPagadoras">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getNucleos">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="isCriaNumContaAutomatico">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getNumerosContaReaproveitamento">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="hasAcessoProduto">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="isPassivelAlteracaoTitularidade">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getValoresMinimoSubscricao">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getCapitalMinimoEstatutoCooperativa">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="validarDadosCadastro">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarChequeEspecial">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarTotalExtrato">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getClassificacaoContaCtb">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getAgencias">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getInstituicaoFinanceira">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getInformacoesCooperativa">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getAberturaContaCoexistenciaPJ">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="criarSubscricaoCapital">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="saveAberturaContaCoexistenciaPJ">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getAberturaContaCoexistenciaPF">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="saveAberturaContaCoexistenciaPF">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="getLimitePreAprovado">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarProdutosCreditoPF">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="contratarProdutosCreditoPJ">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+        <WL5G3N2:operation name="saveDevedorSolidario">
+<WL5G3N0:Policy>
+<WL5G3N0:PolicyReference URI="#AberturaContaServicePortBinding_WSAT_policy"/>
+</WL5G3N0:Policy>
+            <WL5G3N5:operation/>
+            <WL5G3N2:input>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:input>
+            <WL5G3N2:output>
+                <WL5G3N5:body use="literal"/>
+            </WL5G3N2:output>
+            <WL5G3N2:fault name="ServException">
+                <WL5G3N5:fault name="ServException" use="literal"/>
+            </WL5G3N2:fault>
+        </WL5G3N2:operation>
+    </WL5G3N2:binding>
+    <WL5G3N2:service name="AberturaContaServicePortBindingQSService">
+        <WL5G3N2:documentation>OSB Service</WL5G3N2:documentation>
+        <WL5G3N2:port name="AberturaContaServicePortBindingQSPort" binding="WL5G3N3:AberturaContaServicePortBinding">
+            <WL5G3N5:address location="http://osb3cmua.hom.sicredi.net:80/osb-3c-servpla/cadastro/mua/conta/aberturaConta/ws/v1/ps/AberturaContaService"/>
+        </WL5G3N2:port>
+    </WL5G3N2:service>
+</WL5G3N2:definitions>

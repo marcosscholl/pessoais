@@ -1,0 +1,159 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'com.google.cloud.tools.jib' version '3.4.1'
+    id "uk.co.boothen.gradle.wsimport" version "0.21"
+}
+
+group = 'br.com.sicredi.aberturadecontas-contasalario-efetivador'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '21'
+compileJava.options.encoding = 'UTF-8'
+
+springBoot {
+    buildInfo()
+}
+
+ext {
+    set('sicrediVaultVersion', "2.4")
+    set('sicrediObservability', "2.2.+")
+    set('springCloudVersion', "2023.0.1")
+    set('springdocVersion', '2.5.0')
+    set('encoding', "UTF-8")
+    set('sicrediIdempotentVersion', "1.1.4")
+    set('oracleVersion', "23.4.0.24.05")
+    set('sicrediFrameworkExceptionVersion', "2.0.0")
+
+}
+
+dependencies {
+    // Dependencias de Infraestrutura - Obrigatórias
+    implementation "devops.sicredi:vault-springboot-starter:${sicrediVaultVersion}"
+    implementation "io.sicredi.engineering.libraries:spring-boot-sicredi-observability:${sicrediObservability}"
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
+    implementation "org.springframework.cloud:spring-cloud-starter-consul-config"
+
+    //Kafka
+    implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka")
+    testImplementation "org.springframework.cloud:spring-cloud-stream-test-binder"
+
+    // Api Spring Web Mvc
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //Idempotência
+    implementation "io.sicredi.engineering.libraries:idempotent-transaction:${sicrediIdempotentVersion}"
+
+    //DataBase
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "com.oracle.database.jdbc:ojdbc11:${oracleVersion}"
+    testImplementation 'com.h2database:h2'
+
+    // Exceptions
+    implementation "br.com.sicredi.framework.web.spring:framework-web-spring-exception:${sicrediFrameworkExceptionVersion}"
+
+
+    //lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    //Mapstruct
+    compileOnly 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    compileOnly 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    //Log
+    implementation "org.slf4j:slf4j-api"
+    testRuntimeOnly "org.slf4j:slf4j-api"
+
+    // soap
+    implementation 'org.springframework:spring-oxm'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services:1.4.0.RELEASE'
+
+    // openfeign
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation 'io.github.openfeign:feign-micrometer'
+    implementation 'io.github.openfeign:feign-jackson:11.10'
+    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-stub-runner"
+
+    // OWASP's ESAPI Encoder library
+    implementation group: 'org.owasp.esapi', name: 'esapi', version: '2.6.0.0'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = "harbor.sicredi.net/openjdk/corretto:21-debian-slim"
+    }
+    container {
+        jvmFlags = ['-noverify', '-XX:TieredStopAtLevel=1', '-Dfile.encoding=UTF8', '-Duser.timezone=America/Sao_Paulo']
+        ports = ['8080']
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+///////////////////////////////////////////////////////////
+//START WSDL SOAP CONFIG
+wsimport {
+    wsdl = "ContaSalarioService.wsdl"
+    extension = true
+    verbose = true
+}
+
+wsimport {
+    wsdl = "AberturaContaService.wsdl"
+    extension = true
+    verbose = true
+}
+
+wsimport {
+    wsdl = "CadastroAssociadoService.wsdl"
+    extension = true
+    verbose = true
+}
+
+wsimport {
+    wsdl = "EmailService.wsdl"
+    extension = true
+    verbose = true
+}
+
+wsimport {
+    wsdl = "TelefoneService.wsdl"
+    extension = true
+    verbose = true
+}
+
+wsimport {
+    wsdl = "AberturaContaCoexistenciaService.wsdl"
+    extension = true
+    verbose = true
+}
+
+wsimport {
+    wsdl = "ContaSalarioContasService.wsdl"
+    extension = true
+    verbose = true
+}
+//END WSDL SOAP CONFIG
+///////////////////////////////////////////////////////////

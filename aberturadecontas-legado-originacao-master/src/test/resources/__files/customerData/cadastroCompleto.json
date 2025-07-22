@@ -1,0 +1,111 @@
+{
+  "changeDate": "2024-10-31T10:03:53.432-0300",
+  "fromLegacy": false,
+  "id": "29d787e6-8ff4-42be-b229-390e5e56f326",
+  "personCondition": {
+    "civilCapacity": "FULL",
+    "condition": "OF_AGE"
+  },
+  "personal": {
+    "addresses": [
+      {
+        "addressType": "HOME",
+        "allowDelivery": true,
+        "changeDate": "2024-10-31T10:03:53.426-0300",
+        "city": "PORTO ALEGRE",
+        "countryCode": 76,
+        "countryDescription": "BRASIL",
+        "id": "a1bcd88c-cbe3-463e-bd81-bf8d762e7a70",
+        "mainAddress": true,
+        "neighborhood": "SANTA ROSA DE LIMA",
+        "noNumber": false,
+        "number": "11111",
+        "postalCode": "91160040",
+        "registerDate": "2024-10-31T10:03:40.748-0300",
+        "source": "CUSTOMER",
+        "state": "RS",
+        "street": "MARIO ARNAUD SAMPAIO",
+        "streetType": "RUA"
+      }
+    ],
+    "birthCity": "PORTO ALEGRE",
+    "birthCountry": "BRASILEIRA",
+    "birthDate": "1978-01-01",
+    "birthState": "RS",
+    "emails": [
+      {
+        "email": "65808530008teste@teste.com",
+        "id": "5fdf2425-de66-457c-a29d-3aec0a54b657",
+        "order": 1,
+        "verified": false
+      }
+    ],
+    "gender": "MALE",
+    "idCard": {
+      "idNumber": "123456789123456789",
+      "idType": "RG",
+      "issueDate": "2020-11-12",
+      "issuingEntity": "SSP",
+      "issuingState": "RS",
+      "source": "CUSTOMER"
+    },
+    "mainContactChannel": "EMAIL",
+    "maritalStatus": "SINGLE",
+    "name": {
+      "first": "RICARDO RODRIGUES"
+    },
+    "parents": [
+      {
+        "id": "bd73572c-7dcb-40a2-81ea-66367192398b",
+        "name": "FABIO LIMA",
+        "parentRole": "FATHER"
+      },
+      {
+        "id": "8dac7579-1999-4ff8-b659-fb691d74c3b6",
+        "name": "CARLA NUNES",
+        "parentRole": "MOTHER"
+      }
+    ],
+    "phones": [
+      {
+        "allowSms": true,
+        "countryCode": "55",
+        "id": "a203ea66-7fb2-4056-9e3c-0e6ac7a17036",
+        "number": "998833774",
+        "phoneType": "MOBILE",
+        "stateCode": "51"
+      }
+    ],
+    "suid": "65808530008",
+    "taxResidence": false,
+    "taxResidenceCountries": []
+  },
+  "professional": {
+    "incomeNotInformed": false,
+    "incomes": [
+      {
+        "changeDate": "2024-10-31T10:03:53.419-0300",
+        "id": "57f5f1cd-23f8-4864-9283-390dedf6c883",
+        "income": 10000,
+        "registerDate": "2024-10-31T10:03:40.741-0300",
+        "source": "DOCUMENT"
+      },
+      {
+        "changeDate": "2024-10-31T10:03:53.419-0300",
+        "id": "8264f779-2e23-4425-acfb-02f6f464758e",
+        "income": 5000,
+        "registerDate": "2024-10-31T10:03:40.741-0300",
+        "source": "BUREAU"
+      }
+    ],
+    "occupation": {
+      "changeDate": "2024-10-31T10:03:40.661-0300",
+      "code": "99003",
+      "description": "ESTUDANTE",
+      "registerDate": "2024-10-31T10:03:40.661-0300"
+    },
+    "occupationCode": "99003"
+  },
+  "registerDate": "2024-10-31T10:03:40.661-0300",
+  "status": "ACTIVE"
+}

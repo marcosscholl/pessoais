@@ -1,0 +1,60 @@
+spring:
+  main.banner-mode: "off"
+  application:
+    group: "aberturadecontas-contasalario"
+    name: "aberturadecontas-contasalario-efetivador"
+  cloud:
+    consul:
+      ## Token - Provider CAS
+      token: ${CONSUL_TOKEN:bd5517a2-581c-bde9-0a66-8e1cdc86a482}
+      host: ${CONSUL_SERVER:consul.des.sicredi.net}
+      port: ${CONSUL_PORT:8500}
+      config:
+        ## Token - Provider AWS
+        acl-token: ${CONSUL_TOKEN:bd5517a2-581c-bde9-0a66-8e1cdc86a482}
+        enabled: true
+        prefixes: "${spring.application.group}"
+        ## Para Versionamento no Codigo
+        defaultContext: ${spring.application.name}
+        ## Para Versionamento na Infraestrutura
+        #defaultContext: ${spring.application.name}/${MAJOR_VERSION:v0}
+        format: YAML
+      discovery:
+        enabled: false
+    vault:
+      fail-fast: true
+      authentication: ${VAULT_AUTH:TOKEN}
+      ## Token do Vault para usar localmente
+      token: "5rSW5BJhjWOKvfecpCI4a9X8"
+      host: ${VAULT_SERVER:vault.des.sicredi.net}
+      port: 8200
+      scheme: ${VAULT_SCHEME:http}
+      kubernetes:
+        role: ${spring.application.name}
+        kubernetes-path: ${CLUSTER_NAME}
+      lookup:
+        - root-path: secret/database
+          keys:
+            - oracle.aberturadecontascontasalario01.aberturadecontascontasalario01.password
+
+        - root-path: app/${spring.application.name}
+          keys:
+            - created_at
+
+        - root-path: secret/app/${spring.application.name}
+          keys:
+            - kafka.token
+# Não verificar no startup
+management.health:
+  consul.enabled: false
+  binders.enabled: false
+  vault.enabled: false
+  db.enabled: false
+
+# NIVEL DE LOG Padrão
+logging.level:
+  root: INFO
+  io.sicredi.aberturadecontasalarioefetivador: INFO
+  org.springframework.ws: INFO
+  org.apache.kafka.clients.consumer.ConsumerConfig: INFO
+  org.apache.kafka.clients.producer.ProducerConfig: INFO

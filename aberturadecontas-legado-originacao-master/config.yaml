@@ -1,0 +1,6 @@
+module:
+  mounts:
+    - source: README.md
+      target: content/<vertical>/<produto>/aberturadecontas-legado-originacao/_index.md
+    - source: images
+      target: static/images

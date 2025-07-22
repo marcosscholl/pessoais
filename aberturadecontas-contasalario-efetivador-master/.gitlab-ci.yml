@@ -1,0 +1,7 @@
+include:
+  - project: 'engineering/engineering-ci-cd'
+    ref: 'master'
+    file: '.gitlab-ci.yml'
+
+default:
+  image: harbor.sicredi.net/docker-base-images/gradle:8.5.0-jdk21

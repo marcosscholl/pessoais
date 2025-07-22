@@ -1,0 +1,56 @@
+spring:
+  main.banner-mode: "off"
+  application:
+    group: "aberturadecontas-legado"
+    name: "aberturadecontas-legado-originacao"
+  cloud:
+    consul:
+      ## Token - Provider CAS
+      token: ${CONSUL_TOKEN:ARuzMxhYTrKQdQe5fG5UC4tmcc}
+      host: ${CONSUL_SERVER:https://consul.dev-sicredi.in}
+      port: ${CONSUL_PORT:443}
+      config:
+        ## Token - Provider AWS
+        acl-token: ${CONSUL_TOKEN:ARuzMxhYTrKQdQe5fG5UC4tmcc}
+        enabled: true
+        prefixes: "config/${spring.application.group}"
+        ## Para Versionamento no Codigo
+        #defaultContext: ${spring.application.name}
+        ## Para Versionamento na Infraestrutura
+        defaultContext: ${spring.application.name}/${MAJOR_VERSION:v1}
+        format: YAML
+    vault:
+      fail-fast: true
+      authentication: ${VAULT_AUTH:TOKEN}
+      ## Token do Vault para usar localmente
+      token: "31f62b77-dd73-6f83-6571-a0d53d1eac26"
+      host: ${VAULT_SERVER:vault.dev-sicredi.in}
+      port: 8200
+      scheme: ${VAULT_SCHEME:https}
+      kubernetes:
+        role: ${spring.application.name}
+        kubernetes-path: ${CLUSTER_NAME}
+      lookup:
+        - root-path: app/${spring.application.name}
+          keys:
+            - created_at
+        - root-path: secret/app/${spring.application.name}
+          keys:
+            - kafka.token
+        - root-path: secret/database
+          keys:
+            - mongo.aberturadecontas_legado_originacao.aberturadecontas_legado_originacao.password
+
+# Não verificar no startup
+management.health:
+  consul.enabled: false
+  binders.enabled: false
+  vault.enabled: false
+  db.enabled: false
+
+# NIVEL DE LOG Padrão
+logging.level:
+  root: ERROR
+  io.sicredi: ERROR
+  org.apache.kafka: ERROR
+  org.springframework.cloud.stream: ERROR

@@ -1,0 +1,46 @@
+{
+  "content": [
+    {
+      "idEntidadeSicredi": 8088,
+      "codigoTipoEntidade": "AGENCIA",
+      "codigoCooperativa": "0167",
+      "codigoAgencia": "17",
+      "nomeFantasia": "UA São Sebastião do Caí",
+      "numeroCnpj": "90608712001586",
+      "codigoSituacao": "ATIVA",
+      "codigoEntidade": "BGQ",
+      "codigoEntidadePai": "BGA",
+      "codigoCredis": "000671",
+      "codigoCaf": "1214",
+      "dataAbertura": "2006-01-23",
+      "dataCentroCusto": "2006-01-23",
+      "flagSejaAssociado": false,
+      "flagDigital": false
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 1,
+    "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 1,
+  "sort": {
+    "sorted": true,
+    "unsorted": false,
+    "empty": false
+  },
+  "number": 0,
+  "numberOfElements": 1,
+  "first": true,
+  "size": 1,
+  "empty": false
+}

@@ -1,0 +1,111 @@
+sicredi:
+  aberturadecontas-legado-originacao:
+    cancelamentoAutomaticoItemPedidoHabilitado: false
+    kafka:
+      acquisitionEngineManagerItemsConsumerHabilitado: true
+    client:
+      rest:
+        config:
+          retryer:
+            period: 300
+            maxPeriod: 3000
+            maxAttempts: 3
+        acquisition-orders:
+          url: http://localhost:${wiremock.server.port}
+        customer-data:
+            url: http://localhost:${wiremock.server.port}
+        acquisition-register-data:
+          url: http://localhost:${wiremock.server.port}
+        gestent-conector:
+          url: http://localhost:${wiremock.server.port}
+        originacao-legado:
+          url: http://localhost:${wiremock.server.port}
+        monthly-fee-simulation:
+          url: http://localhost:${wiremock.server.port}
+        acquisition-checking-account:
+          url: http://localhost:${wiremock.server.port}
+      grpc:
+        capital-account-acquisition:
+          url: capital-account-acquisition-v1-rpc.uat.sicredi.cloud
+          port: 443
+      soap:
+        admin-service:
+          url: http://ws-mua.pre.sicredi.net:80/AdminServicesBean/AdminService?wsdl
+        carteira-service:
+          url: http://osb3c.hom.sicredi.net/osb-3c-carteira/ws/v1/ps/CarteiraService?wsdl
+spring:
+  ## DATABASE
+  data:
+    mongodb:
+      repositories:
+        type: reactive
+      uri: mongodb://aberturadecontas_legado_originacao:${mongo.aberturadecontas_legado_originacao.aberturadecontas_legado_originacao.password}@aberturadecontas-legado-originacao-mgdb1.dev-sicredi.in:27017/aberturadecontas_legado_originacao?authSource=admin&replicaSet=repDB
+  ## KAFKA
+  kafka:
+    bootstrap-servers: events-broker.dev-sicredi.in:9093
+    consumer:
+      auto-offset-reset: latest
+    properties:
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule
+            required username="${spring.application.name}" password="${kafka.token}";
+        mechanism: SCRAM-SHA-256
+      security:
+        protocol: SASL_PLAINTEXT
+  ## CLOUD
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
+    function:
+      definition: acquisitionEngineManagerItemsConsumer
+    stream:
+      kafka:
+        streams.binder.configuration.auto.offset.reset: latest
+        default:
+          consumer:
+            startOffset: latest
+        binder:
+          enable-observation: true
+          autoCreateTopics: false
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            acks: all
+        bindings:
+          acquisitionEngineManagerItemsConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: false
+              dlqName: acquisition-engine-manager-items-v1-ab-legado-originacao-dlt
+      bindings:
+        acquisitionEngineManagerItemsConsumer-in-0:
+          binder: kafka
+          destination: acquisition-engine-manager-items-v1
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 30000
+            back-off-max-interval: 1800000
+            concurrency: 2
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 3
+    consul:
+      enabled: false
+    vault:
+      enabled: true
+  ## JACKSON
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+    time-zone: America/Sao_Paulo
+
+observability:
+  metrics.enabled: true
+  tracing.enabled: true
+
+logging.level:
+  root: INFO
+  io.sicredi: INFO

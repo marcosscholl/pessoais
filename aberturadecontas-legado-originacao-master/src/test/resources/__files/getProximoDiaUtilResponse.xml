@@ -1,0 +1,5 @@
+<ns0:getProximoDiaUtilResponse xmlns:ns0="http://ejb.server.business.commons.mua.sicredi.com.br/">
+    <outGetProximoDiaUtil>
+        <dataUtil>2025-04-25T00:00:00-03:00</dataUtil>
+    </outGetProximoDiaUtil>
+</ns0:getProximoDiaUtilResponse>

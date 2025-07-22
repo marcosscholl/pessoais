@@ -1,0 +1,163 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'com.google.cloud.tools.jib' version '3.4.1'
+    id 'git-hook-plugin-gradle' version '1.1.+'
+    id 'com.google.protobuf' version '0.9.4'
+    id "uk.co.boothen.gradle.wsimport" version "0.22"
+}
+
+group = 'br.com.sicredi.aberturadecontas-legado-originacao'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '21'
+compileJava.options.encoding = 'UTF-8'
+
+springBoot {
+    buildInfo()
+}
+
+ext {
+    set('sicrediVaultVersion', "2.4")
+    set('sicrediObservability', "2.2.+")
+    set('springCloudVersion', "2023.0.1")
+    set('springdocVersion', '2.5.0')
+    set('encoding', "UTF-8")
+    set('sicrediFrameworkExceptionVersion', "2.0.0")
+    set('grpcVersion', "1.71.0")
+    set('protobufCapitalAcquisitionVersion', "1.3.0")
+}
+
+dependencies {
+    // Dependências de Infraestrutura - Obrigatórias
+    implementation "devops.sicredi:vault-springboot-starter:${sicrediVaultVersion}"
+    implementation "io.sicredi.engineering.libraries:spring-boot-sicredi-observability:${sicrediObservability}"
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
+    implementation "org.springframework.cloud:spring-cloud-starter-consul-config"
+
+    // Api Spring Web Mvc
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // Mapstruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    compileOnly 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    // Database
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb"
+
+    // Exceptions
+    implementation "br.com.sicredi.framework.web.spring:framework-web-spring-exception:${sicrediFrameworkExceptionVersion}"
+
+    // SOAP
+    implementation 'org.springframework:spring-oxm'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services:1.4.0.RELEASE'
+
+    // OpenFeign
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation 'io.github.openfeign:feign-micrometer'
+    implementation 'io.github.openfeign:feign-jackson:11.10'
+
+    //Kafka
+    implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka")
+    testImplementation "org.springframework.cloud:spring-cloud-stream-test-binder"
+
+    // Wiremock e Messaging Route
+    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-stub-runner"
+
+    // Instancio
+    testImplementation 'org.instancio:instancio-junit:5.3.0'
+
+    // gRPC
+    protobuf group: 'io.sicredi.capital.acquisition.protobuf', name: 'capital-account-acquisition-protobuf', version: protobufCapitalAcquisitionVersion
+    implementation group: 'io.grpc', name: 'grpc-netty', version: grpcVersion
+    implementation group: 'io.grpc', name: 'grpc-protobuf', version: grpcVersion
+    implementation group: 'io.grpc', name: 'grpc-stub', version: grpcVersion
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation group: 'io.grpc', name: 'grpc-core', version: grpcVersion
+    testImplementation group: 'io.grpc', name: 'grpc-testing', version: grpcVersion
+    testImplementation group: 'io.grpc', name: 'grpc-inprocess', version: grpcVersion
+
+    //SOAP
+    implementation 'org.springframework:spring-oxm'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+    testImplementation 'org.springframework.ws:spring-ws-test'
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.5"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.71.0"
+        }
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/java', 'build/generated/source/proto/main/grpc'
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '--add-opens', 'java.base/java.time=ALL-UNNAMED'
+}
+
+jib {
+    from {
+        image = "harbor.sicredi.net/openjdk/corretto:21-debian-slim"
+    }
+    container {
+        jvmFlags = ['-noverify', '-XX:TieredStopAtLevel=1', '-Dfile.encoding=UTF8', '-Duser.timezone=America/Sao_Paulo']
+        ports = ['8080']
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+wsimport {
+    wsdl = "AdminService.wsdl"
+    extension = true
+    verbose = true
+    generatedSourceRoot = "build/generated/src/wsdl/main"
+}
+
+wsimport {
+    wsdl = "CarteiraService.wsdl"
+    extension = true
+    verbose = true
+    generatedSourceRoot = "build/generated/src/wsdl/main"
+}

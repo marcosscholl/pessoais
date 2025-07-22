@@ -1,0 +1,10 @@
+<ns2:consultarCarteiraResponse xmlns:ns2="http://sicredi.com.br/crm/ws/v1/carteiraService">
+    <ns2:codigoCarteira>219</ns2:codigoCarteira>
+    <ns2:numeroCarteira>PF AGRO I - Até 500 mil</ns2:numeroCarteira>
+    <ns2:numPosto>0119</ns2:numPosto>
+    <ns2:numAgencia>12</ns2:numAgencia>
+    <ns2:responsavelCarteira>PATRICIA GABRIELA FUHR</ns2:responsavelCarteira>
+    <ns2:flgCarteiraPadrao>N</ns2:flgCarteiraPadrao>
+    <ns2:oidPessoa>4689406</ns2:oidPessoa>
+    <ns2:oidCadastroCarteira>55252</ns2:oidCadastroCarteira>
+</ns2:consultarCarteiraResponse>

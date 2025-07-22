@@ -1,0 +1,6 @@
+module:
+  mounts:
+    - source: README.md
+      target: content/associacao-contas/abertura-conta/conta-salario/aberturadecontas-contasalario-efetivador/_index.md
+    - source: images
+      target: static/images

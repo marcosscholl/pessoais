@@ -1,0 +1,55 @@
+{
+  "id": "67e2e1d992f99d79e007ceb1",
+  "offerId": "b411059206ab3b7e",
+  "opportunityId": "006DR00000Kl0x5YAB",
+  "organization": "0119",
+  "agency": "12",
+  "status": "PENDING",
+  "trackerStatus": "PROCESSING",
+  "createdBy": "bruna_msouza",
+  "originSource": "CRM",
+  "enrollmentType": "SINGLE",
+  "startDate": "2025-03-25T14:03:21.577-03:00",
+  "items": [
+    {
+      "id": "67e2e1d992f99d79e007ceaf",
+      "simulationId": "67e2e1c7c83e6471e3da81fd",
+      "productCatalogId": "1",
+      "productType": "INDIVIDUAL_CAPITAL_ACCOUNT",
+      "productCode": "99",
+      "brand": "SICREDI",
+      "status": "PROCESSING",
+      "customers": [
+        {
+          "customerId": "87bda778-74f4-4d9b-af05-d84addae8359",
+          "suid": "49325733080",
+          "role": "HOLDER",
+          "permissionLess": false
+        }
+      ],
+      "offer": {
+        "offerOptionId": "e66449f2-489e-4c48-bb7b-c2c996895420"
+      }
+    },
+    {
+      "id": "67e2e1d992f99d79e007ceb0",
+      "simulationId": "67e2e1d1aca54f01fdba1fc2",
+      "productCatalogId": "2",
+      "productType": "INDIVIDUAL_CHECKING_ACCOUNT",
+      "productCode": "51",
+      "brand": "SICREDI",
+      "status": "PROCESSING",
+      "customers": [
+        {
+          "customerId": "87bda778-74f4-4d9b-af05-d84addae8359",
+          "suid": "49325733080",
+          "role": "HOLDER",
+          "permissionLess": false
+        }
+      ],
+      "offer": {
+        "offerOptionId": "38856bde-c20a-45ac-9d05-a64252142c9b"
+      }
+    }
+  ]
+}

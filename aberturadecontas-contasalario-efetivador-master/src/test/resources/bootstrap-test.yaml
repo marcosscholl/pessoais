@@ -1,0 +1,257 @@
+spring:
+  application:
+    group: "aberturadecontas-contasalario"
+    name: "aberturadecontas-contasalario-efetivador"
+  cloud:
+    function:
+      definition: processaBureauRFContaSalarioConsumer;processaCadastroContaSalarioConsumer;processaSucessoCadastroContaSalarioConsumer;processaErroCadastroContaSalarioConsumer;processaDLTBureauRFContaSalarioConsumer;processaDLTCadastroContaSalarioConsumer;processaDLTSucessoCadastroContaSalarioConsumer;processaDLTErroCadastroContaSalarioConsumer
+    stream:
+      kafka:
+        default:
+          consumer:
+            startOffset: earliest
+        binder:
+          brokers: events-broker.dev.cloud.sicredi.net:9093
+          autoCreateTopics: false
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            acks: all
+        bindings:
+          processaBureauRFContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: true
+              dlqName: aberturadecontas-contasalario-efetivador-bureaurf-v1-dlt
+          processaCadastroContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: true
+              dlqName: aberturadecontas-contasalario-efetivador-cadastros-v1-dlt
+          processaSucessoCadastroContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: true
+              dlqName: aberturadecontas-contasalario-efetivador-cadastros-sucesso-v1-dlt
+          processaErroCadastroContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: true
+              dlqName: aberturadecontas-contasalario-efetivador-cadastros-erro-v1-dlt
+          processaDLTBureauRFContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: false
+          processaDLTCadastroContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: false
+          processaDLTSucessoCadastroContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: false
+          processaDLTErroCadastroContaSalarioConsumer-in-0:
+            consumer:
+              ack-mode: manual
+              enableDlq: false
+      bindings:
+        processaBureauRFContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-bureaurf-v1
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 30000
+            back-off-max-interval: 1800000
+            concurrency: 1
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 3
+        processaCadastroContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-cadastros-v1
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 1
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaSucessoCadastroContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-cadastros-sucesso-v1
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 1
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaErroCadastroContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-cadastros-erro-v1
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 1
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaDLTBureauRFContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-bureaurf-v1-dlt
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 4
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaDLTCadastroContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-cadastros-v1-dlt
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 4
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaDLTSucessoCadastroContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-cadastros-v1-dlt
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 4
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaDLTErroCadastroContaSalarioConsumer-in-0:
+          binder: kafka
+          destination: aberturadecontas-contasalario-efetivador-cadastros-v1-dlt
+          contentType: application/json
+          group: ${spring.application.name}
+          consumer:
+            back-off-initial-interval: 2000
+            back-off-max-interval: 10000
+            concurrency: 4
+            retryable-exceptions:
+              org.springframework.kafka.KafkaException: true
+              br.com.sicredi.framework.exception.TechnicalException: true
+            maxAttempts: 2
+        processaCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-v1
+        processaSucessoCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-sucesso-v1
+        dltProcessaSucessoCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-sucesso-v1-dlt
+        processaErroCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-erro-v1
+        dltProcessaErroCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-erro-v1-dlt
+        processaResultadoCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-resultado-v1
+        dltProcessaResultadoCadastroContaSalarioProducer-out-0:
+          destination: aberturadecontas-contasalario-efetivador-cadastros-resultado-v1-dlt
+    consul:
+      config:
+        enabled: false
+    vault:
+      config:
+        enabled: false
+  datasource:
+    jdbcUrl: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    jpa:
+      hibernate:
+        ddl-auto: none
+      show-sql: true
+      properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+          dialect: org.hibernate.dialect.H2Dialect
+    h2:
+      console:
+        enabled: true
+  cloud.consul.enabled: false
+  cloud.vault.enabled: false
+
+webservice:
+  soap:
+    ContaSalarioService: http://osb3cmua.hom.sicredi.net/osb-cadastro/contas/contaSalario/ws/v1/ps/ContaSalarioService
+    AberturaContaService: http://osb3cmua.hom.sicredi.net/osb-3c-servpla/cadastro/mua/conta/aberturaConta/ws/v1/ps/AberturaContaService
+    CadastroAssociadoService: http://ws-cadastro.hom.sicredi.net/CadastroAssociadoService/CadastroAssociadoService
+    EmailService: http://osb3cmua.hom.sicredi.net/osb-3c-servpla/cadastro/mua/pessoa/email/ws/v1/ps/EmailService
+    TelefoneService: http://osb3cmua.hom.sicredi.net/osb-3c-servpla/cadastro/mua/pessoa/telefone/ws/v1/ps/TelefoneService
+    AberturaContaCoexistenciaService: http://localhost:${wiremock.server.port}
+    ContaSalarioContasService: http://wd-ccor.hom.sicredi.net/ContaSalarioService/ContaSalarioService
+
+    retryer:
+      period: 1000
+      maxAttempts: 2
+  rest:
+    client:
+      retryer:
+        period: 300
+        maxPeriod: 3000
+        maxAttempts: 3
+    bureauRF: http://localhost:${wiremock.server.port}
+    gestentConectorApi: http://localhost:${wiremock.server.port}
+    cadastroassociadocontas: http://localhost:${wiremock.server.port}
+    contaSalarioCoreEventos: http://localhost:${wiremock.server.port}
+event:
+  toggle:
+    rfbconsumer:
+      enabled: true
+      paused: false # Pausado para manter os eventos no tópico sem ack em caso de receita fora do ar durante períodos extensos
+    cadastroconsumer:
+      enabled: true
+    rfberroconsumer:
+      enabled: true
+    cadastroerroconsumer:
+      enabled: true
+    cadastrosucessoconsumer:
+      enabled: true
+idempotent:
+  transaction:
+    cdc:
+      enabled: false
+    context:
+      enabled: true
+    table:
+      sufix: _abertura_conta_salario_efetivador
+
+webhook:
+  timeout:
+    ms: 10000
+
+observability:
+  metrics.enabled: false
+  tracing.enabled: false
+
+# NIVEL DE LOG Local
+logging.level:
+  root: INFO
+  io.sicredi.aberturadecontasalarioefetivador: INFO

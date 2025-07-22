@@ -1,0 +1,6293 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1914,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "PODs Infra",
+      "tooltip": "",
+      "type": "link",
+      "url": "$url_pods_infra&${componenttag:queryparam}&${__url_time_range}"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "GITLAB",
+      "tooltip": "Acessar o Gitlab do Componente",
+      "type": "link",
+      "url": "https://gitlab.sicredi.net/${aplicacao}/${component:text}"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "DevConsole",
+      "tooltip": "Acessar o DevConsole do Componente",
+      "type": "link",
+      "url": "https://devconsole.sicredi.in/catalog/application/${aplicacao}/${component:text}"
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 37,
+      "panels": [],
+      "title": "Solicitações",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade Total de Solicitações Realizadas com Sucesso",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 39,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "limit": 100,
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum (\n  label_replace(\n    increase(solicitacao_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Solicitações Realizadas Com Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de solicitações com sucesso agrupadas por codConvenioFontePagadora, Canal, Agencia e Cooperativa",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 4,
+        "y": 1
+      },
+      "id": 40,
+      "interval": "1m",
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Total",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (agencia, canal, codConvenioFontePagadora, numCooperativa)(\n  label_replace(\n    increase(solicitacao_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "CodConvenio: {{codConvenioFontePagadora}} Canal: {{canal}} Agência: {{agencia}} Cooperativa {{numCooperativa}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Solicitações Com Sucesso",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de solicitações com erro agrupadas por codConvenioFontePagadora, Canal, Agencia e Cooperativa",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 14,
+        "y": 1
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Total",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (agencia, canal, codConvenioFontePagadora, numCooperativa)(\n  label_replace(\n    increase(solicitacao_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "CodConvenio: {{codConvenioFontePagadora}} Canal: {{canal}} Agência: {{agencia}} Cooperativa {{numCooperativa}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Solicitações Com Erro",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade Total de Solicitações Realizadas com Erro no Recebimento",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 5
+      },
+      "id": 41,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(solicitacao_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Solicitações Com Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade Total de Solicitações Realizadas e  completamente processadas (apenas indica se a solicitação e seus cadastros foram completamente processados, ou seja, não indica sucessos ou erros nos cadastros da solicitação). Em geral, tem que se manter com um valor igual ao número de solicitadas com sucesso (não incrementa caso seja uma solicitação duplicada).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 9
+      },
+      "id": 43,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(solicitacao_processada_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Solicitações Processadas",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 75,
+      "panels": [],
+      "title": "Bureau RF",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de CPF consultados como irregulares (cancelado/óbito) na base da RF.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 14
+      },
+      "id": 79,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(bureaurf_rfb001_irregular_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "CPFs Irregulares",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de CPF consultados menor de idade e que não tiveram representante legal informado no cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 14
+      },
+      "id": 76,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(bureaurf_rfb002_menor_sem_representante_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Menor de Idade Sem Representante Legal",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de CPF de representantes legais informados que constam como menores de idade na base da RF.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 14
+      },
+      "id": 81,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(bureaurf_rfb003_representante_menor_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Representante Informado Menor de Idade",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de cadastros com nome informado diferente do que consta na base da RF.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 14
+      },
+      "id": 77,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(bureaurf_rfb004_nome_divergente_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Nome Informado Divergente da RF",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de cadastros com data de nascimento informada diferente do que consta na base da RF.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 14
+      },
+      "id": 78,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(bureaurf_rfb005_data_nascimento_divergente_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Data de Nascimento Divergente da RF",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de cadastros com sexo informado diferente do que consta na base da RF.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 14
+      },
+      "id": 80,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(bureaurf_rfb006_sexo_divergente_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Sexo Informado Divergente da RF",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 44,
+      "panels": [],
+      "title": "Cadastros de Conta Salário",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de consulta no Bureau RF ignorados.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 19
+      },
+      "id": 57,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_bureaurf_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Bureau RF - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de consulta no Bureau RF processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 19
+      },
+      "id": 46,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_bureaurf_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Bureau RF - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de consulta no Bureau RF com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 19
+      },
+      "id": 47,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_bureaurf_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Bureau RF - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos na DLT de consulta no Bureau RF ignorados.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 19
+      },
+      "id": 60,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_bureaurf_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT do Bureau RF - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos na DLT de consulta no Bureau RF processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 19
+      },
+      "id": 61,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_bureaurf_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT do Bureau RF - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de consulta no Bureau RF com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 19
+      },
+      "id": 62,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_bureaurf_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT do Bureau RF - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de cadastro ignorados.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 23
+      },
+      "id": 45,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_cadastro_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de cadastro processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 23
+      },
+      "id": 58,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_cadastro_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 23
+      },
+      "id": 59,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_cadastro_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de cadastro ignorados.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 23
+      },
+      "id": 63,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_cadastro_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de cadastro processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 23
+      },
+      "id": 64,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_cadastro_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 23
+      },
+      "id": 65,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_cadastro_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos ignorados de sucesso no cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 27
+      },
+      "id": 48,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_sucessoCadastro_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Sucesso de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de sucesso no cadastro, processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 27
+      },
+      "id": 49,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_sucessoCadastro_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Sucesso de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de sucesso no cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 27
+      },
+      "id": 50,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_sucessoCadastro_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Sucesso Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos ignorados de DLT de  sucesso no cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 27
+      },
+      "id": 66,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_sucessoCadastro_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Sucesso de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de sucesso no cadastro, processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 27
+      },
+      "id": 67,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_sucessoCadastro_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Sucesso de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de sucesso no cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 27
+      },
+      "id": 68,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_sucessoCadastro_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Sucesso Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos ignorados de erro no cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 31
+      },
+      "id": 51,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_erroCadastro_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Erro de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de erro no cadastro, processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 31
+      },
+      "id": 52,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_erroCadastro_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Erro de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de erro no cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 31
+      },
+      "id": 53,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_erroCadastro_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Erro Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos ignorados de DLR de erro no cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 31
+      },
+      "id": 69,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_erroCadastro_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Erro de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de erro no cadastro, processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 31
+      },
+      "id": 70,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_erroCadastro_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Erro de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de erro no cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 31
+      },
+      "id": 71,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_erroCadastro_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Erro Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos ignorados de resultado do cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 35
+      },
+      "id": 54,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_resultadoSolicitacao_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Resultado de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de resultado no cadastro, processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 35
+      },
+      "id": 55,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_resultadoSolicitacao_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Resultado de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de resultado no cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 35
+      },
+      "id": 56,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(event_resultadoSolicitacao_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Eventos de Resultado Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos ignorados de DLT de resultado do cadastro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 35
+      },
+      "id": 72,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_resultadoSolicitacao_ignorado_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Resultado de Cadastro - Ignorados",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de resultado no cadastro, processados com sucesso.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 35
+      },
+      "id": 73,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_resultadoSolicitacao_sucesso_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Resultado de Cadastro - Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de eventos de DLT de resultado no cadastro com erro durante o processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 35
+      },
+      "id": 74,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(dlt_event_resultadoSolicitacao_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "DLT de Resultado Cadastro - Erro",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de erros na abertuda de contas salário durante o processamento de cadastros",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 0,
+        "y": 39
+      },
+      "id": 82,
+      "interval": "1m",
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Total",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (codigo, descricao)(\n  label_replace(\n    increase(conta_salario_erro_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "Código de erro: {{codigo}} Descrição: {{descricao}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Erros na abertuda de Conta Salário",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de Cadastros que não tiveram os dados cadastrais do cliente atualizados pelo fato do mesmo ser Associado Digital.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 10,
+        "y": 39
+      },
+      "id": 83,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(cadastro_associado_digital_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Dados Cadastrais Não Atualizados - Associado Digital",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade total de Cadastros que já possuiam conta cadastrada, obtiveram erro durante o processamento de cadastro, e tiveram a conta preexistente reaproveitada durante o processamento do evento de erro.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 10,
+        "y": 43
+      },
+      "id": 84,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum (\n  label_replace(\n    increase(erroCadastro_conta_pre_existente_reaproveitada_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Conta Preexistente Reaproveitada",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 47
+      },
+      "id": 4,
+      "panels": [],
+      "title": "HTTP",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de Requisições por segundo",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 48
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    rate(http_server_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Requisições por segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade Total de Requisições",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 48
+      },
+      "id": 34,
+      "interval": "1m",
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    increase(http_server_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib de Observabilidade"
+        }
+      ],
+      "title": "Total de Requisições",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Tempo médio de duração das requisições HTTP",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Sem requisições",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 48
+      },
+      "id": 3,
+      "interval": "1m",
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    rate(http_server_requests_seconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n) \n/ \nsum by (method, uri, version) (\n  label_replace(\n    rate(http_server_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(\n    histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{app=~\"${component:text}(-(v[0-9]+|canary))?$\", http_route!='/health', http_route!='/actuator/health'}[$__rate_interval])) by (le, method, uri)),\n \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\")",
+          "hide": false,
+          "instant": false,
+          "legendFormat": " {{version}} P95 {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib P95"
+        }
+      ],
+      "title": "Duração média",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Erros HTTP 500 e 400 por segundo",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*5xx.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*4xx.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 56
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    rate(http_server_requests_seconds_count{status=~\"5..\", app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} 5xx {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib - 5xx"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    rate(http_server_requests_seconds_count{status=~\"4..\", app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{version}} 4xx {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib - 4xx"
+        }
+      ],
+      "title": "Erros por Segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Erros HTTP 500 e 400 por segundo",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*5xx.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*4xx.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  " 5xx GET /**"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 56
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Total",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    increase(http_server_requests_seconds_count{status=~\"5..\", app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} 5xx {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib - 5xx"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (method, uri, version) (\n  label_replace(\n    rate(http_server_requests_seconds_count{status=~\"4..\", app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{version}} 4xx {{method}} {{uri}}",
+          "range": true,
+          "refId": "Lib - 4xx"
+        }
+      ],
+      "title": "Total de Erros",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "id": 5,
+      "panels": [],
+      "title": "Consumo Kafka",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de mensagens consumidas por segundo",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 65
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (spring_kafka_listener_id, version) (\n  label_replace(\n    rate(spring_kafka_listener_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{spring_kafka_listener_id}}",
+          "range": true,
+          "refId": "Lib 1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (topic, version) (\n  label_replace(\n    rate(kafka_consumer_fetch_manager_records_consumed_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{version}} {{topic}}",
+          "range": true,
+          "refId": "Lib 2"
+        }
+      ],
+      "title": "Eventos por segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de mensagens consumidas por segundo",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 65
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (spring_kafka_listener_id, version) (\n  label_replace(\n    increase(spring_kafka_listener_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{spring_kafka_listener_id}}",
+          "range": true,
+          "refId": "Lib 1"
+        }
+      ],
+      "title": "Total de eventos",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Tempo médio para consumo de mensagens Kafka",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Sem mensagens",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  " KafkaConsumerDestination{consumerDestinationName='aberturadecontas-contasalario-efetivador-cadastros-sucesso-v1', partitions=0, dlqName='null'}.container-0 "
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 65
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (spring_kafka_listener_id, name, version) (\n  label_replace(\n    rate(spring_kafka_listener_seconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n/\nsum by (spring_kafka_listener_id, name, version) (\n  label_replace(\n    rate(spring_kafka_listener_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n",
+          "instant": false,
+          "legendFormat": "{{version}} {{spring_kafka_listener_id}} {{name}}",
+          "range": true,
+          "refId": "Lib"
+        }
+      ],
+      "title": "Duração média de consumo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Lag do tópico kafka",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Sem mensagens",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 73
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "max(spring_cloud_stream_binder_kafka_offset{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}) by (topic, group)",
+          "instant": false,
+          "legendFormat": "{{topic}} - group {{group}}",
+          "range": true,
+          "refId": "Lib 1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "max(kafka_consumer_fetch_manager_records_lag{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}) by (topic)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{topic}}",
+          "range": true,
+          "refId": "Lib 2"
+        }
+      ],
+      "title": "Lag",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de Rebalance por consumer group",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 73
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (client_id, version) (\n  label_replace(\n    increase(kafka_consumer_coordinator_rebalance_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{client_id}}",
+          "range": true,
+          "refId": "Lib"
+        }
+      ],
+      "title": "Rebalances",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 81
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Banco de Dados",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de interações com o BD por segundo",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 82
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (repository, method, version) (\n  label_replace(\n    rate(spring_data_repository_invocations_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{repository}} - {{method}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Quantidade por segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Quantidade de erros por segundo nas interações com BD",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 82
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (repository, method, version) (\n  label_replace(\n    rate(spring_data_repository_invocations_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", state=\"ERROR\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+          "instant": false,
+          "legendFormat": "{{version}} {{repository}} - {{method}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Erros por segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
+      },
+      "description": "Tempo médio de operações com o BD",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Sem operações",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 82
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (repository, method, version) (\n  label_replace(\n    rate(spring_data_repository_invocations_seconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n/\nsum by (repository, method, version) (\n  label_replace(\n    rate(spring_data_repository_invocations_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n",
+          "instant": false,
+          "legendFormat": "{{version}} {{repository}} - {{method}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Duração média",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 89
+      },
+      "id": 18,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "description": "Chamadas para APIs externas por segundo",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 7
+          },
+          "id": 19,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_method, http_url, uri, client_name, version) (\n  label_replace(\n    rate(http_client_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "instant": false,
+              "legendFormat": "{{version}} {{uri}} {{http_method}} {{http_url}} {{client_name}}",
+              "range": true,
+              "refId": "Lib"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_request_method, server_address, version) (\n  label_replace(\n    rate(http_client_request_duration_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} {{http_request_method}} {{server_address}}",
+              "range": true,
+              "refId": "Auto"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method, host, version) (\n  label_replace(\n    rate(http_okHttpClient_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", host!~\"consul.*\", host!~\"vault.*\", host!~\"otel-collector.*\", host!~\"monitoring-metrics.*\", host!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} {{method}} {{host}}",
+              "range": true,
+              "refId": "OkHttp"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (rpc_service, rpc_method, version) (\n  label_replace(\n    rate(rpc_client_duration_milliseconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC {{rpc_service}} - {{rpc_method}}",
+              "range": true,
+              "refId": "gRPC Auto o11y"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (service, method, version) (\n  label_replace(\n    rate(grpc_client_processing_duration_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC {{service}} - {{method}}",
+              "range": true,
+              "refId": "gRPC lib"
+            }
+          ],
+          "title": "Chamadas por segundo",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "description": "Erros por segundo por endpoint em chamadas para APIs externas",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "dark-red",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*4xx.*"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": ".*5xx.*"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      " gRPC RestricaoService - GetRestricaoByCpf"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 7
+          },
+          "id": 20,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_method, http_url, uri, client_name, version) (\n  label_replace(\n    rate(http_client_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", http_status_code=~\"5..\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "instant": false,
+              "legendFormat": "{{version}} 5xx {{uri}} {{http_method}} {{http_url}} {{client_name}}",
+              "range": true,
+              "refId": "Lib - 5xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_method, http_url, uri, client_name, version) (\n  label_replace(\n    rate(http_client_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", http_status_code=~\"4..\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 4xx {{uri}} {{http_method}} {{http_url}} {{client_name}}",
+              "range": true,
+              "refId": "Lib - 4xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_request_method, server_address, version) (\n  label_replace(\n    rate(http_client_request_duration_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", http_response_status_code=~\"5..\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 5xx {{http_request_method}} {{server_address}}",
+              "range": true,
+              "refId": "Auto - 5xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_request_method, server_address, version) (\n  label_replace(\n    rate(http_client_request_duration_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", http_response_status_code=~\"4..\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 4xx {{http_request_method}} {{server_address}}",
+              "range": true,
+              "refId": "Auto - 4xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method, clientName, version) (\n  label_replace(\n    rate(http_client_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", status=\"CLIENT_ERROR\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 4xx {{method}} {{clientName}}",
+              "range": true,
+              "refId": "Auto 2 - 4xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method, clientName, version) (\n  label_replace(\n    rate(http_client_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", status=\"IO_ERROR\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 5xx {{method}} {{clientName}}",
+              "range": true,
+              "refId": "Auto 2 - 5xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method, host, version) (\n  label_replace(\n    rate(http_okHttpClient_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", host!~\"consul.*\", host!~\"vault.*\", host!~\"otel-collector.*\", host!~\"monitoring-metrics.*\", host!~\"shared-metrics-db.*\", status=~\"5..\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 5xx {{method}} {{host}}",
+              "range": true,
+              "refId": "Ok Http 5xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method, host, version) (\n  label_replace(\n    rate(http_okHttpClient_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", host!~\"consul.*\", host!~\"vault.*\", host!~\"otel-collector.*\", host!~\"monitoring-metrics.*\", host!~\"shared-metrics-db.*\", status=~\"4..\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} 4xx {{method}} {{host}}",
+              "range": true,
+              "refId": "Ok Http 4xx"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (rpc_service, rpc_method, version) (\n  label_replace(\n    rate(rpc_client_duration_milliseconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", rpc_grpc_status_code!~\"0\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC {{rpc_service}} - {{rpc_method}}",
+              "range": true,
+              "refId": "gRPC Auto o11y - Erros"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (service, method, version) (\n  label_replace(\n    rate(grpc_client_processing_duration_seconds_count{statusCode!~\"OK\", app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC {{service}} - {{method}}",
+              "range": true,
+              "refId": "gRPC Lib - Erros"
+            }
+          ],
+          "title": "Erros por segundo",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "description": "Tempo médio das chamadas para APIs externas por endpoint",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "noValue": "Sem chamadas",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 7
+          },
+          "id": 21,
+          "options": {
+            "legend": {
+              "calcs": [
+                "min",
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_url, http_method, method, uri, client_name, version) (\n  label_replace(\n    rate(http_client_requests_seconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n/\nsum by (http_url, http_method, method, uri, client_name, version) (\n  label_replace(\n    rate(http_client_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} {{uri}} {{http_method}} {{method}} {{http_url}} {{client_name}}",
+              "range": true,
+              "refId": "Lib"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "  label_replace(\n    histogram_quantile(0.95, sum(rate(http_client_requests_seconds_bucket{app=~\"${component:text}(-(v[0-9]+|canary))?$\",}[$__rate_interval])) by (le, http_url, http_method, method, uri, client_name, version)),\n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} P95 {{http_method}} {{method}} {{uri}} {{http_url}} {{client_name}}",
+              "range": true,
+              "refId": "Lib P95"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (http_request_method, server_address, version) (\n  label_replace(\n    rate(http_client_request_duration_seconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n/\nsum by (http_request_method, server_address, version) (\n  label_replace(\n    rate(http_client_request_duration_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} {{http_request_method}} {{server_address}}",
+              "range": true,
+              "refId": "Auto"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "  label_replace(\n    histogram_quantile(0.95, sum(rate(http_client_request_duration_seconds_bucket{app=~\"${component:text}(-(v[0-9]+|canary))?$\", server_address!~\"consul.*\", server_address!~\"vault.*\", server_address!~\"otel-collector.*\", server_address!~\"monitoring-metrics.*\", server_address!~\"shared-metrics-db.*\"}[$__rate_interval])) by (le, http_request_method, server_address)),\n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} P95 {{http_request_method}} {{server_address}}",
+              "range": true,
+              "refId": "Auto P95"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method, host, version) (\n  label_replace(\n    rate(http_okHttpClient_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", host!~\"consul.*\", host!~\"vault.*\", host!~\"otel-collector.*\", host!~\"monitoring-metrics.*\", host!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)\n/\nsum by (method, host, version) (\n  label_replace(\n    rate(http_okHttpClient_requests_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\", host!~\"consul.*\", host!~\"vault.*\", host!~\"otel-collector.*\", host!~\"monitoring-metrics.*\", host!~\"shared-metrics-db.*\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} {{method}} {{host}}",
+              "range": true,
+              "refId": "Ok Http"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "  label_replace(\n    histogram_quantile(0.95, sum(rate(http_okHttpClient_requests_seconds_bucket{app=~\"${component:text}(-(v[0-9]+|canary))?$\", host!~\"consul.*\", host!~\"vault.*\", host!~\"otel-collector.*\", host!~\"monitoring-metrics.*\", host!~\"shared-metrics-db.*\"}[$__rate_interval])) by (le, method, host)),\n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} P95 {{method}} {{host}}",
+              "range": true,
+              "refId": "Ok Http P95"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (rpc_service, rpc_method, version) (\n  label_replace(\n    rate(rpc_client_duration_milliseconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]) / 1000, \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n) \n/ \nsum by (rpc_service, rpc_method, version) (\n  label_replace(\n    rate(rpc_client_duration_milliseconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC {{rpc_service}} {{rpc_method}}",
+              "range": true,
+              "refId": "gRPC Auto o11y"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "label_replace(\n  histogram_quantile(\n    0.95, \n    sum(\n      rate(rpc_client_duration_milliseconds_bucket{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval])\n    ) by (le, rpc_service, rpc_method, version)\n  ) / 1000,\n  \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n)\n",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC P95 {{rpc_service}} {{rpc_method}}",
+              "range": true,
+              "refId": "P95 - Grpc Auto 011y"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (service, method, version) (\n    label_replace(\n      rate(grpc_client_processing_duration_seconds_sum{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n      \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n    )\n  ) \n  / \n  sum by (service, method, version) (\n    label_replace(\n      rate(grpc_client_processing_duration_seconds_count{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n      \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n    )\n  )",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{version}} gRPC {{service}} - {{method}}",
+              "range": true,
+              "refId": "gRPC Lib"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "label_replace(\n    histogram_quantile(0.95, sum(rate(grpc_server_processing_duration_seconds_bucket{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval])) by (le, service, method)),\n \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\")",
+              "hide": false,
+              "instant": false,
+              "legendFormat": " {{version}} gRPC P95 {{service}} {{method}}",
+              "range": true,
+              "refId": "gRPC Lib P95"
+            }
+          ],
+          "title": "Duração média",
+          "type": "timeseries"
+        }
+      ],
+      "title": "APIs Externas",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 90
+      },
+      "id": 22,
+      "panels": [
+        {
+          "datasource": {
+            "default": false,
+            "type": "datasource",
+            "uid": "-- Mixed --"
+          },
+          "description": "Quantidade de logs por segundo",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "blue",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 90,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 8
+          },
+          "id": 23,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "right",
+              "showLegend": false
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (level, version) (\n  label_replace(\n    rate(logback_events_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "Lib"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${loki}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (version) (\n  label_replace(\n    count(rate({service_name=~\"${component:text}(-(v[0-9]+|canary))?$\"}[2m])), \n    \"version\", \"$1\", \"service_name\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "queryType": "range",
+              "refId": "Auto"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${loki}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (version) (\n  label_replace(\n    count(rate({job=~\"${component:text}(-(v[0-9]+|canary))?$\"}[2m])), \n    \"version\", \"$1\", \"job\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "queryType": "range",
+              "refId": "Auto - Legado"
+            }
+          ],
+          "title": "Quantidade",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "datasource",
+            "uid": "-- Mixed --"
+          },
+          "description": "Quantidade de logs de erro por segundo",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-YlRd"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 90,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 3,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 8
+          },
+          "id": 24,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "right",
+              "showLegend": false
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prometheus}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (version) (\n  label_replace(\n    rate(logback_events_total{app=~\"${component:text}(-(v[0-9]+|canary))?$\", level=\"error\"}[$__rate_interval]), \n    \"version\", \"$1\", \"app\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "Lib"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${loki}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (version) (\n  label_replace(\n    count(rate({service_name=~\"${component:text}(-(v[0-9]+|canary))?$\"}| detected_level=`error` |= ``[2m])), \n    \"version\", \"$1\", \"service_name\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "queryType": "range",
+              "refId": "Auto"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${loki}"
+              },
+              "editorMode": "code",
+              "expr": "sum by (version) (\n  label_replace(\n    count(rate({job=~\"${component:text}(-(v[0-9]+|canary))?$\", level=\"ERROR\"}[2m])), \n    \"version\", \"$1\", \"job\", \"${component:text}-(v[0-9]+|canary)|${component:text}$\"\n  )\n)",
+              "hide": false,
+              "queryType": "range",
+              "refId": "Auto - Legado"
+            }
+          ],
+          "title": "Erros",
+          "type": "timeseries"
+        },
+        {
+          "gridPos": {
+            "h": 2,
+            "w": 8,
+            "x": 16,
+            "y": 8
+          },
+          "id": 33,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<a href=\"https://${graylog_url}/search?q=${field_graylog}:${component:text}${versions} AND level:3\" target=\"_blank\">\n  <img src=\"https://assets.zabbix.com/img/brands/graylog.svg\" alt=\"Graylog\" style=\"width:20px;height:auto;vertical-align:middle;\">\n  Visualização dos Logs de Erro ${versions}\n</a>\n\n",
+            "mode": "html"
+          },
+          "pluginVersion": "10.4.1",
+          "repeat": "versions",
+          "repeatDirection": "v",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "loki",
+            "uid": "${loki}"
+          },
+          "description": "Os logs apenas serão exibidos para componentes auto instrumentados. ",
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 10
+          },
+          "id": 32,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": false,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "repeat": "versions",
+          "repeatDirection": "v",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${loki}"
+              },
+              "editorMode": "code",
+              "expr": "{service_name=\"${component:text}${versions}\"} | detected_level=`error` |= ``",
+              "queryType": "range",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${loki}"
+              },
+              "editorMode": "code",
+              "expr": "{job=~\"${component:text}(-(v[0-9]+|canary))?$\", level=\"ERROR\"}",
+              "hide": false,
+              "queryType": "range",
+              "refId": "Auto - Legado"
+            }
+          ],
+          "title": "Logs de Erro - Loki ${versions}",
+          "type": "logs"
+        }
+      ],
+      "title": "Logs",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 91
+      },
+      "id": 15,
+      "panels": [
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "${tempo}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Service"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 380
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 9
+          },
+          "id": 16,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "tempo",
+                "uid": "${tempo}"
+              },
+              "limit": 20,
+              "query": "{resource.service.name=~\"${component:text}(-(v[0-9]+|canary))?$\" && status=error}",
+              "queryType": "traceql",
+              "refId": "A",
+              "tableType": "traces"
+            }
+          ],
+          "title": "Traces com erro",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "${tempo}"
+          },
+          "description": "Traces com mais de 5 segundos",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Service"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 408
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 9
+          },
+          "id": 17,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "tempo",
+                "uid": "${tempo}"
+              },
+              "limit": 20,
+              "query": "{resource.service.name=~\"${component:text}(-(v[0-9]+|canary))?$\" && traceDuration>5s}",
+              "queryType": "traceql",
+              "refId": "A",
+              "tableType": "traces"
+            }
+          ],
+          "title": "Traces lentos",
+          "type": "table"
+        }
+      ],
+      "title": "Traces",
+      "type": "row"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "hide": 2,
+        "label": "Componente",
+        "name": "component",
+        "query": "aberturadecontas-contasalario-efetivador",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "6635",
+          "value": "6635"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT id\nFROM componentes\nWHERE nome = '${component:text}'",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "component_id",
+        "options": [],
+        "query": "SELECT id\nFROM componentes\nWHERE nome = '${component:text}'",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "[PRD] VictoriaMetrics CAS - Clusters K8S",
+          "value": "[PRD] VictoriaMetrics CAS - Clusters K8S"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT CASE WHEN ambiente = 'CAS' THEN '$nome_prometheus_cas'\n\t   ELSE '$nome_prometheus_aws' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "nome_prometheus",
+        "options": [],
+        "query": "SELECT CASE WHEN ambiente = 'CAS' THEN '$nome_prometheus_cas'\n\t   ELSE '$nome_prometheus_aws' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "[PRD] VictoriaMetrics CAS - Clusters K8S",
+          "value": "EinBn9Bnk"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "prometheus",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "${nome_prometheus}",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "graylog.prd.sicredi.cloud",
+          "value": "graylog.prd.sicredi.cloud"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT CASE WHEN c.ambiente = 'CAS' THEN '$url_graylog_cas' ELSE '$url_graylog_aws' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "graylog_url",
+        "options": [],
+        "query": "SELECT CASE WHEN c.ambiente = 'CAS' THEN '$url_graylog_cas' ELSE '$url_graylog_aws' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "application",
+          "value": "application"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT CASE WHEN c.ambiente = 'CAS' THEN 'application' ELSE 'source' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "field_graylog",
+        "options": [],
+        "query": "SELECT CASE WHEN c.ambiente = 'CAS' THEN 'application' ELSE 'source' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1b/prd-cas-pods-infra-v2?orgId=1&refresh=10s",
+          "value": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1b/prd-cas-pods-infra-v2?orgId=1&refresh=10s"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT CASE WHEN mc.tem_auto_instrumentacao IS TRUE THEN '$url_pods_infra_auto' WHEN c.ambiente = 'CAS' THEN '$urls_pods_infra_cas' ELSE '$urls_pods_infra_aws' END\nFROM componentes c\nJOIN metricas_componente mc ON mc.componente_id = c.id\nWHERE c.id = $component_id",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "url_pods_infra",
+        "options": [],
+        "query": "SELECT CASE WHEN mc.tem_auto_instrumentacao IS TRUE THEN '$url_pods_infra_auto' WHEN c.ambiente = 'CAS' THEN '$urls_pods_infra_cas' ELSE '$urls_pods_infra_aws' END\nFROM componentes c\nJOIN metricas_componente mc ON mc.componente_id = c.id\nWHERE c.id = $component_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${prometheus}"
+        },
+        "definition": "label_values(app)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "versions",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(app)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "${component:text}(-(v[0-9]+|canary))$",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "aberturadecontas-contasalario-efetivador",
+          "value": "aberturadecontas-contasalario-efetivador"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${prometheus}"
+        },
+        "definition": "label_values(app)",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "componenttag",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(app)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "(${component:text}(-(v[0-9]+|canary))?$)",
+        "skipUrlSync": false,
+        "sort": 2,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "aberturadecontas-contasalario",
+          "value": "aberturadecontas-contasalario"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT aplicacao\nFROM componentes c\nWHERE c.id = $component_id",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "aplicacao",
+        "options": [],
+        "query": "SELECT aplicacao\nFROM componentes c\nWHERE c.id = $component_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1c/cas-pods-infra-v2-com-auto-instrumentacao?orgId=1&refresh=1m",
+          "value": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1c/cas-pods-infra-v2-com-auto-instrumentacao?orgId=1&refresh=1m"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${data_source_postgres}"
+        },
+        "definition": "SELECT CASE WHEN c.ambiente = 'CAS' THEN '$urls_pods_infra_auto_cas' ELSE '$urls_pods_infra_auto_aws' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "url_pods_infra_auto",
+        "options": [],
+        "query": "SELECT CASE WHEN c.ambiente = 'CAS' THEN '$urls_pods_infra_auto_cas' ELSE '$urls_pods_infra_auto_aws' END\nFROM componentes c\nWHERE c.id = $component_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Tempo",
+          "value": "a8350264-5140-4ca8-bc20-f00ac8a159aa"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "tempo",
+        "options": [],
+        "query": "tempo",
+        "refresh": 1,
+        "regex": "Tempo",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Loki",
+          "value": "ce473cb4-f325-4773-ac1b-ff1d0d3e3e3d"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "loki",
+        "options": [],
+        "query": "loki",
+        "refresh": 1,
+        "regex": "Loki",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "hide": 2,
+        "name": "url_graylog_cas",
+        "query": "graylog.prd.sicredi.cloud",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "url_graylog_aws",
+        "query": "logs.prd-sicredi.in",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "nome_prometheus_cas",
+        "query": "[PRD] VictoriaMetrics CAS - Clusters K8S",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "nome_prometheus_aws",
+        "query": "[AWS][PRD] - VictoriaMetrics AWS - EKS Clusters",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "urls_pods_infra_auto_cas",
+        "query": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1c/cas-pods-infra-v2-com-auto-instrumentacao?orgId=1&refresh=1m",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "urls_pods_infra_auto_aws",
+        "query": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1d/aws-pods-infra-v2-com-auto-instrumentacao?orgId=1&refresh=1m",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "urls_pods_infra_cas",
+        "query": "https://monitoring-grafana.prd.sicredi.cloud/d/d5246cc0-dc34-4eec-b967-9d2f0fad6b1b/prd-cas-pods-infra-v2?orgId=1&refresh=10s",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "urls_pods_infra_aws",
+        "query": "https://monitoring-grafana.prd.sicredi.cloud/d/a42493f9-2f79-46cb-b908-206258d96947/prd-aws-pods-infra-v2?orgId=1&refresh=1m",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Eng. Software - Metricas",
+          "value": "adkapwre1o9oga"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "data_source_postgres",
+        "options": [],
+        "query": "grafana-postgresql-datasource",
+        "refresh": 1,
+        "regex": "Eng. Software - Metricas",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "[Conta Salário] - Efetivador",
+  "uid": "cea69egxbkwe8e",
+  "version": 2,
+  "weekStart": ""
+}
